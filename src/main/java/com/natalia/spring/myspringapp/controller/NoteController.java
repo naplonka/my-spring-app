@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 public class NoteController {
-    public static final Logger logger = LoggerFactory.getLogger(NoteRepository.class);
+    public static final Logger logger = LoggerFactory.getLogger(NoteController.class);
     private final NoteRepository repository;
 
     public NoteController(NoteRepository repository) {
@@ -37,14 +37,14 @@ public class NoteController {
         return ResponseEntity.noContent().build();//zwracamy 204 not content i budujemy
     }
 
-    @GetMapping("/tasks/{id}")
+    @GetMapping("/notes/{id}")
     ResponseEntity<Note> findById (@PathVariable int id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/tasks")
+    @PostMapping("/notes")
     ResponseEntity<?> postTask(@RequestBody @Valid Note toPost) {
         Note result = repository.save(toPost);
         return ResponseEntity.created(URI.create("/" + result.getId())).build();

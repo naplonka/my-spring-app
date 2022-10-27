@@ -10,7 +10,6 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-
     @NotBlank(message = "Title can not be empty.")
     private String title;
     private String desc;
